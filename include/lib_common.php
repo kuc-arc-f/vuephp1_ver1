@@ -76,8 +76,10 @@ class Lib_common {
 		}
 		return $ret;
 	}
-
-
+	function send_xhrHeader(){
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+	}
 
 }
 

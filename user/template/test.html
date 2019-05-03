@@ -8,14 +8,39 @@
         <label for="TopicContent">content</label>
         <textarea class="form-control" id="content" rows="3" v-model="content"></textarea>
     </div>
-    <button v-on:click="postTask">投稿</button>    
+    <button v-on:click="postTask">投稿</button>
+    <hr />
+    <button onClick="test_ajax();">[test]</button>    
 </div>
 <!-- -->
 <script>
 //var baseUrl = '<?php echo($mConfig["base_url"]); ?>/user/index.php';
 var baseUrl = '<?php echo($mConfig["base_url"]); ?>/t3.php';
 console.log(baseUrl);
-
+/* jQuery */
+function test_ajax(){
+    console.log('#btn-1');
+    var hostUrl= baseUrl;
+    var title = $('#title').val();
+    var content = $('#content').val();
+//    console.log(content);
+    var param1 = 1;
+    var param2 = 10;
+    $.ajax({
+        url: hostUrl,
+        type:'POST',
+        dataType: 'json',
+        /* data : {parameter1 : param1, parameter2 : param2 }, */
+        data : {'title' : title, 'content' : content},
+        timeout:3000,
+    }).done(function(data) {
+        console.log(data);
+        alert("ok");
+    }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("error");
+    })		
+}
+//
 var app = new Vue({
     el: '#app',
     created() {
@@ -34,7 +59,7 @@ var app = new Vue({
             }
 //            console.log(task)
 //axios.get(baseUrl ,task).then(res => {
-            axios.get(url, task ).then(res => {
+            axios.post(baseUrl, task ).then(res => {
                 console.log(res.data );
                 var arr={message : '登録が完了しました。'}
 //                exStorage.save( sysConst.STORAGE_KEY_flash, arr )

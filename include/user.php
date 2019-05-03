@@ -29,19 +29,28 @@ class User {
 	}
 	//
 	function exec_function( $req ){
+//		$tasks = new Tasks();
 		switch($req['fn']){
             case 'user_top'     : $this->user_top($req); break;
-            /* tasks */
+			/* tasks */
 			case 'tasks'     : $this->tasks_index($req); break;
             case 'api_tasks'     : $this->api_tasks_index($req); break;
 			case 'tasks_create'     : $this->tasks_create($req); break;
-            case 'api_tasks_create' : $this->api_tasks_create($req); break;
+			case 'api_tasks_create' : $this->api_tasks_create($req); break;
+			case 'tasks_show'     : $this->tasks_show($req); break;
+			case 'api_tasks_show'     : $this->api_tasks_show($req); break;
+			//
+            case 'test' : $this->test($req); break;
 			// 
 			default:
 				return;
 		}
     }
-    /* tasks */
+    function test($req){
+        $cls = new Tasks();
+        $cls->test();		
+	}
+		/* tasks */
     function tasks_index($req){
         $cls = new Tasks();
         $cls->index();
@@ -58,7 +67,15 @@ class User {
         $cls = new Tasks();
 //        var_dump($req);
         $cls->api_create($req);
-    }
+	}
+	function tasks_show($req){
+        $cls = new Tasks();
+        $cls->show($req);
+	}
+	function api_tasks_show($req){
+        $cls = new Tasks();
+        $cls->api_show($req);
+	}
     /* user */
 	function user_show($req){
 		$cls=new User_auth();

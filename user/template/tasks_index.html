@@ -5,7 +5,7 @@
     <div v-for="task in tasks" v-bind:key="task.id">
         <p>ID : {{ task.id }}</p>
         <h3>
-            <a v-bind:href="conv_url('tasks/show/') +task.id">{{ task.title }}</a>
+            <a v-bind:href="conv_url('?fn=tasks_show&id=') +task.id">{{ task.title }}</a>
         </h3>
         <p>
             {{ task.content }}

@@ -1,0 +1,43 @@
+<h1>Tasks - show</h1>
+<hr />
+<div id="app">
+        <div class="card" v-if="item">
+                <p>ID: {{ item.id }}</p>
+                <div class="card-body">
+                <div>
+                    <h1 class="card-title">{{item.title}}</h1>
+                    <div class="card-text">{{item.content}}</div>
+                </div>
+            </div>
+        </div>
+</div>
+<!-- -->
+<script>
+var baseUrl = '<?php echo($mConfig["base_url"]); ?>/user';
+var param_id = '<?php echo($tpl["id"]); ?>';
+
+var app = new Vue({
+    el: '#app',
+    created() {
+        this.getTasks()
+    },    
+    data: {
+        task_id : param_id,
+        item : null,
+    },
+    methods: {
+        getTasks() {
+            var url = this.conv_url('/?fn=api_tasks_show&id=' +this.task_id )
+            var self = this
+            axios.get(url)
+            .then(res =>  {
+                this.item = res.data[0]
+//                console.log(this.item )
+            })
+        },
+        conv_url(url) {
+            return baseUrl + url
+        }
+    }    
+});
+</script>
